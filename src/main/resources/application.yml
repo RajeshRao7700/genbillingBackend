@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8082
   servlet:
     context-path: /
 
@@ -8,9 +8,9 @@ spring:
     name: nex-billing-backend
 
   datasource:
-    url: jdbc:mysql://${DB_HOST:31.97.133.241}:${DB_PORT:3306}/${DB_NAME:rigeladmin_genbilling_DB}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
-    username: ${DB_USERNAME:rigeladmin_genbilling_DB}
-    password: ${DB_PASSWORD:uk8j*s?#-&-La{]$}
+    url: jdbc:mysql://127.0.0.1:3307/rigeladmin_genbilling_DB?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC&characterEncoding=UTF-8
+    username: rigeladmin_genbilling_DB
+    password: uk8j*s?#-&-La{]$
     driver-class-name: com.mysql.cj.jdbc.Driver
     hikari:
       maximum-pool-size: 15

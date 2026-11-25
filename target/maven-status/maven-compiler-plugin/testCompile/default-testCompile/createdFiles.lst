@@ -1,1 +1,3 @@
+com\nexbill\service\AuthenticationServiceTest.class
+com\nexbill\security\JwtServiceTest.class
 com\nexbill\NexBillApplicationTests.class
