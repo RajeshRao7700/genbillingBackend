@@ -32,12 +32,31 @@ public class Branch {
     @Column(name = "phone", length = 25)
     private String phone;
 
+    @Column(name = "email", length = 120)
+    private String email;
+
     @Column(name = "address", columnDefinition = "TEXT")
     private String address;
+
+    @Column(name = "city", length = 80)
+    private String city;
+
+    @Column(name = "state", length = 80)
+    private String state;
+
+    @Column(name = "pincode", length = 10)
+    private String pincode;
+
+    @Column(name = "gstin", length = 20)
+    private String gstin;
 
     @Column(name = "is_main_branch", nullable = false)
     @Builder.Default
     private Boolean isMainBranch = false;
+
+    @Column(name = "status", length = 20, nullable = false)
+    @Builder.Default
+    private String status = "ACTIVE";
 
     @Column(name = "is_active", nullable = false)
     @Builder.Default
@@ -50,4 +69,8 @@ public class Branch {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private Instant updatedAt;
+
+    public boolean isStatusActive() {
+        return "ACTIVE".equalsIgnoreCase(this.status) && Boolean.TRUE.equals(this.isActive);
+    }
 }

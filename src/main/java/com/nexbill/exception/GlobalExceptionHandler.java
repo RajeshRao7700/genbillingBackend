@@ -1,6 +1,7 @@
 package com.nexbill.exception;
 
 import com.nexbill.common.ApiResponse;
+import com.nexbill.exception.BusinessRuleException;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.SignatureException;
@@ -141,6 +142,13 @@ public class GlobalExceptionHandler {
         log.warn("Constraint violation: {}", ex.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(ApiResponse.error("Validation constraint violation: " + ex.getMessage(), "VALIDATION_FAILED"));
+    }
+
+    @ExceptionHandler(BusinessRuleException.class)
+    public ResponseEntity<ApiResponse<Void>> handleBusinessRule(BusinessRuleException ex) {
+        log.warn("Business rule violation: {}", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY)
+                .body(ApiResponse.error(ex.getMessage(), "BUSINESS_RULE_VIOLATION"));
     }
 
     @ExceptionHandler(IllegalStateException.class)

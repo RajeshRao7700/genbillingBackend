@@ -1,6 +1,9 @@
 package com.nexbill.repository;
 
 import com.nexbill.entity.User;
+import com.nexbill.entity.UserRole;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -26,6 +29,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     // Tenant-isolated repository operations
     List<User> findAllByTenantId(Long tenantId);
 
+    Page<User> findAllByTenantId(Long tenantId, Pageable pageable);
+
     Optional<User> findByIdAndTenantId(Long id, Long tenantId);
 
     boolean existsByIdAndTenantId(Long id, Long tenantId);
@@ -33,4 +38,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByTenantIdAndUsernameIgnoreCase(Long tenantId, String username);
 
     boolean existsByTenantIdAndEmailIgnoreCase(Long tenantId, String email);
+
+    // Role-based counts for last-owner protection
+    long countByTenantIdAndRoleAndIsActiveTrue(Long tenantId, UserRole role);
+
+    @Query("SELECT u FROM User u WHERE u.tenantId = :tenantId AND u.branchId = :branchId")
+    List<User> findAllByTenantIdAndBranchId(@Param("tenantId") Long tenantId, @Param("branchId") Long branchId);
 }
